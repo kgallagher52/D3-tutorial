@@ -1,9 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react';
 import {
   axisBottom,
-  curveCardinal,
   select,
-  line,
   scaleLinear,
   axisRight
 } from 'd3'
@@ -20,6 +18,7 @@ const App = () => {
     const xScale = scaleLinear()
       .domain([0, data.length - 1])
       .range([0, 300])
+
     const yScale = scaleLinear()
       .domain([0, 150])
       .range([150, 0])
@@ -34,19 +33,7 @@ const App = () => {
       .style("transform", "translateX(300px)")
       .call(yAxis)
 
-    const myLine = line()
-      .x((value, index) => xScale(index))
-      .y(yScale)
-      .curve(curveCardinal)
-    // Wrapped in another array so it does not generate multiple lines rather then one
-    svg
-      .selectAll(".line")
-      .data([data])
-      .join("path")
-      .attr("class", "line")
-      .attr("d", myLine)
-      .attr("fill", "none")
-      .attr("stroke", "teal")
+
 
   }, [data])
 
@@ -57,12 +44,14 @@ const App = () => {
         <g className="y-axis" />
       </svg>
       <br />
-      <button onClick={() => setData(data.map(v => v + 5))}>
-        Update Data
+      <div className="btns">
+        <button onClick={() => setData(data.map(v => v + 5))}>
+          Update Data
       </button>
-      <button onClick={() => setData(data.filter(v => v < 35))}>
-        Filter Data
+        <button onClick={() => setData(data.filter(v => v < 35))}>
+          Filter Data
       </button>
+      </div>
     </React.Fragment>
   );
 }

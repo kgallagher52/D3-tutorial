@@ -1,5 +1,9 @@
 body {
   margin: 0;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 svg {
@@ -8,4 +12,16 @@ svg {
   background: #f3f3f3;
   overflow: visible;
   margin-bottom: 24px;
+}
+
+button {
+  margin: 4px;
+  width: 100px;
+}
+
+.btns {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }

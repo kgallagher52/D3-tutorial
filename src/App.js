@@ -3,8 +3,11 @@ import {
   axisBottom,
   select,
   scaleLinear,
-  axisRight
+  axisRight,
+  scaleBand
 } from 'd3'
+
+// Scaleband - maps the amount between
 
 const App = () => {
   const [data, setData] = useState([25, 76, 45, 60, 20, 60, 30])
@@ -15,12 +18,13 @@ const App = () => {
   useEffect(() => {
     const svg = select(svgRef.current)
 
-    const xScale = scaleLinear()
-      .domain([0, data.length - 1])
+    const xScale = scaleBand()
+      .domain(data.map((v, i) => i))
       .range([0, 300])
+      .padding(0.5)
 
-    const yScale = scaleLinear()
-      .domain([0, 150])
+    const yScale = scaleBand()
+      .domain([1, 2, 3, 4, 5])
       .range([150, 0])
 
     const xAxis = axisBottom(xScale).ticks(data.length).tickFormat(index => index + 1); // Creating x axis ticks 
@@ -32,6 +36,16 @@ const App = () => {
     svg.select('.y-axis')
       .style("transform", "translateX(300px)")
       .call(yAxis)
+
+
+    svg
+      .selectAll('.bar')
+      .data(data)
+      .join('rect')
+      .attr('class', 'bar')
+      .attr('x', (v, i) => xScale(i))
+      .attr('width', xScale.bandwidth())
+      .attr('height', '50px')
 
 
 
